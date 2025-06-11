@@ -1,0 +1,53 @@
+name: "Propagate Merger"
+description: "Automatically propagate hotfix changes across branches using configurable merge strategies"
+author: "egoavara"
+
+inputs:
+  mode:
+    description: "Execution mode (branch-create: create hotfix branch, auto-merge: propagate hotfix)"
+    required: true
+  version:
+    description: "Hotfix target version (required, e.g. v0.1.2)"
+    required: true
+  hotfix-suffix:
+    description: "Hotfix suffix (required, e.g. hotfix.1)"
+    required: true
+    default: "hotfix.1"
+  github-token:
+    description: "GitHub token for authentication"
+    required: true
+    default: ${{ github.token }}
+  direct-merge-branches:
+    description: "Stage 1: Direct merge branch patterns (executed first, mode: auto-merge, default: main,release/*)"
+    required: false
+    default: "main,release/*"
+  update-then-merge-branches:
+    description: "Stage 2: Update then merge branches (executed after direct-merge-branches, mode: auto-merge, default: dev)"
+    required: false
+    default: "dev"
+  auto-cleanup:
+    description: "Auto-delete hotfix branch after propagation (mode: auto-merge, default: true)"
+    required: false
+    default: "true"
+
+outputs:
+  hotfix-branch:
+    description: "Created or processed hotfix branch name"
+  base-version:
+    description: "Base version tag used for branch creation"
+  propagation-result:
+    description: "Propagation result (success/partial/failed)"
+  successful-branches:
+    description: "Successfully propagated branches (JSON)"
+  failed-branches:
+    description: "Failed propagation branches (JSON)"
+  created-prs:
+    description: "Created PR numbers (JSON)"
+
+runs:
+  using: "node20"
+  main: "dist/index.js"
+
+branding:
+  icon: "git-merge"
+  color: "blue"
