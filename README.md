@@ -156,11 +156,21 @@ jobs:
 
 ## Contributing
 
+### Development Workflow (with Husky)
 1. Fork the repository
 2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+3. Make your changes to TypeScript source files
+4. Commit your changes (`git commit -m 'Add some amazing feature'`)
+   - Pre-commit hook automatically runs code quality checks and tests
+5. Push to the branch (`git push origin feature/amazing-feature`)
+   - Pre-push hook automatically builds and updates dist files
+6. Open a Pull Request
+
+### Git Hooks (Husky)
+- **Pre-commit**: Runs `npm run check:fix` and `npm test`
+- **Pre-push**: Runs `npm run build` and auto-commits dist changes
+
+This ensures code quality and keeps distribution files up-to-date automatically!
 
 ## License
 
