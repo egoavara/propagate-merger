@@ -94,3 +94,6 @@ Use proper type guards for error handling:
 3. Run `npm test` to verify functionality
 4. Run `npm run build` to generate distribution files
 5. Commit both source and generated files
+
+## Commit Guidelines
+- 커밋 메시지는 항상 한국어로 작성한다
