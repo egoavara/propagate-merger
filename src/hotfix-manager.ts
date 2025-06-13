@@ -1,6 +1,6 @@
 import * as core from '@actions/core';
-import type { getOctokit } from '@actions/github';
 import type { Context } from '@actions/github/lib/context';
+import type { Octokit } from '@octokit/rest';
 import { extractVersionFromBranch, isVersionNewer } from './utils/semver';
 
 export interface CreateHotfixResult {
@@ -28,7 +28,7 @@ export interface PropagateHotfixResult {
 
 export class HotfixManager {
   constructor(
-    private octokit: ReturnType<typeof getOctokit>,
+    private octokit: Octokit,
     private context: Context
   ) {}
 

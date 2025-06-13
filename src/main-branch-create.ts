@@ -1,5 +1,6 @@
 import * as core from '@actions/core';
 import * as github from '@actions/github';
+import { Octokit } from '@octokit/rest';
 import { HotfixManager } from './hotfix-manager';
 
 export async function runBranchCreate(): Promise<void> {
@@ -10,7 +11,9 @@ export async function runBranchCreate(): Promise<void> {
   core.info(`🌿 Creating hotfix branch for version: ${version}`);
   core.info(`🔖 Hotfix suffix: ${hotfixSuffix}`);
 
-  const octokit = github.getOctokit(githubToken);
+  const octokit = new Octokit({
+    auth: githubToken,
+  });
   const context = github.context;
   const hotfixManager = new HotfixManager(octokit, context);
 
